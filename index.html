@@ -20,6 +20,21 @@
     --green2: #00c96a;
   }
 
+  /* ── Light Theme Variables ── */
+  [data-theme="light"] {
+    --bg:     #f7f7f7;
+    --bg2:    #ffffff;
+    --bg3:    #ededed;
+    --line:   #e0e0e0;
+    --line2:  #cccccc;
+    --text:   #1a1a1a;
+    --muted:  #a0a0a0;
+    --muted2: #666666;
+    --white:  #000000;
+    --green:  #00a651;
+    --green2: #00853e;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
@@ -31,6 +46,7 @@
     line-height: 1.6;
     overflow-x: hidden;
     cursor: none;
+    transition: background .3s, color .3s;
   }
 
   /* ── Cursor ── */
@@ -63,12 +79,16 @@
     backdrop-filter: blur(16px);
     border-color: var(--line);
   }
+  [data-theme="light"] nav.scrolled {
+    background: rgba(247, 247, 247, .92);
+  }
   .nav-logo {
     font-family: 'Syne', sans-serif; font-weight: 800;
     font-size: 1.1rem; color: var(--white);
     text-decoration: none; letter-spacing: -.02em;
   }
   .nav-logo span { color: var(--green); }
+  .nav-right { display: flex; align-items: center; gap: 2rem; }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
     color: var(--muted2); text-decoration: none;
@@ -81,6 +101,15 @@
     background: var(--green); border-radius: 50%;
     margin-right: .5rem; vertical-align: middle;
   }
+
+  /* Theme Toggle Button */
+  .theme-btn {
+    background: transparent; border: 1px solid var(--line2);
+    color: var(--text); padding: 6px 12px; font-size: .65rem;
+    cursor: none; font-family: 'JetBrains Mono', monospace;
+    transition: all .2s;
+  }
+  .theme-btn:hover { border-color: var(--green); color: var(--green); }
 
   /* ── Hero ── */
   #hero {
@@ -130,7 +159,7 @@
     opacity: 0; animation: up .7s .25s forwards;
   }
   .hero-name .outline {
-    -webkit-text-stroke: 1px rgba(255,255,255,.18);
+    -webkit-text-stroke: 1px var(--line2);
     color: transparent;
   }
   .hero-role {
@@ -147,16 +176,27 @@
   .hero-actions {
     display: flex; align-items: center; gap: 2rem;
     opacity: 0; animation: up .7s .7s forwards;
+    flex-wrap: wrap;
   }
   .btn-primary {
     display: inline-block; text-decoration: none;
-    background: var(--green); color: var(--bg);
+    background: var(--green); color: #080808;
     font-family: 'JetBrains Mono', monospace;
     font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
     padding: .85rem 2rem;
     transition: background .2s, transform .2s;
   }
   .btn-primary:hover { background: var(--green2); transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-block; text-decoration: none;
+    background: transparent; color: var(--white);
+    border: 1px solid var(--line2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+    padding: .85rem 2rem;
+    transition: all .2s;
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
   .btn-ghost {
     text-decoration: none; color: var(--muted2);
     font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
@@ -169,14 +209,14 @@
     position: absolute; right: 3rem; bottom: 5rem;
     font-size: .65rem; color: var(--muted);
     border: 1px solid var(--line); padding: 1.2rem 1.6rem;
-    background: rgba(14,14,14,.8); backdrop-filter: blur(8px);
+    background: var(--bg2); backdrop-filter: blur(8px);
     line-height: 1.9;
     opacity: 0; animation: up .7s .9s forwards;
   }
   .c-green { color: var(--green); }
   .c-muted { color: var(--muted); }
   .c-white { color: var(--white); }
-  .c-dim   { color: #3a3a3a; padding-left: .8rem; }
+  .c-dim   { color: var(--muted2); padding-left: .8rem; }
   .ln { display: inline-block; width: 1.5rem; color: var(--muted); margin-right: .5rem; user-select: none; }
   .t-cursor {
     display: inline-block; width: 7px; height: .9em;
@@ -315,6 +355,31 @@
     font-size: 4rem;
   }
 
+  /* ── Resume Section ── */
+  #resume { background: var(--bg); border-top: 1px solid var(--line); }
+  .resume-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+  .resume-terminal {
+    background: var(--bg2); border: 1px solid var(--line); padding: 2.5rem;
+    font-size: .78rem; line-height: 1.8; color: var(--text); overflow-x: auto;
+  }
+  .res-header { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+  .res-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.5rem; color: var(--white); line-height: 1; }
+  .res-title-sub { color: var(--green); font-size: 1rem; margin-top: .3rem; font-style: italic; }
+  .res-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; font-size: .7rem; color: var(--muted2); }
+  .res-meta a { color: var(--green); text-decoration: none; }
+  .res-sec { margin-bottom: 2.5rem; }
+  .res-sec-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); border-bottom: 1px solid var(--line2); padding-bottom: .3rem; margin-bottom: 1rem; letter-spacing: .05em; text-transform: uppercase; }
+  .res-item { margin-bottom: 1.5rem; }
+  .res-item-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .5rem; }
+  .res-item-name { font-weight: 600; color: var(--white); }
+  .res-item-date { color: var(--green); font-size: .7rem; }
+  .res-item-sub { color: var(--muted2); font-size: .75rem; margin-bottom: .4rem; }
+  .res-bullet { list-style: none; padding-left: 1.2rem; position: relative; margin-bottom: .5rem; color: var(--muted2); }
+  .res-bullet::before { content: "•"; position: absolute; left: 0; color: var(--green); }
+  .res-skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .res-skill-category strong { color: var(--white); font-weight: 400; }
+  .resume-actions-bottom { display: flex; justify-content: center; margin-top: 1rem; }
+
   /* ── Contact ── */
   #contact { background: var(--bg2); border-top: 1px solid var(--line); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
@@ -375,6 +440,15 @@
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity .75s ease, transform .75s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* Print Styles for Resume Feature */
+  @media print {
+    body * { visibility: hidden; }
+    #resume-print-target, #resume-print-target * { visibility: visible; }
+    #resume-print-target { position: absolute; left: 0; top: 0; width: 100%; padding: 0; background: #fff !important; color: #000 !important; }
+    .res-sec-title, .res-item-name, .res-name { color: #000 !important; border-color: #000 !important; }
+    .res-item-date, .res-title-sub, .res-bullet::before { color: #555 !important; }
+  }
+
   /* ── Keyframes ── */
   @keyframes up {
     from { opacity: 0; transform: translateY(28px); }
@@ -407,12 +481,16 @@
 <!-- ── Nav ── -->
 <nav id="nav">
   <a href="#" class="nav-logo">ak<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="#about"><span class="nav-dot"></span>About</a></li>
-    <li><a href="#skills"><span class="nav-dot"></span>Skills</a></li>
-    <li><a href="#projects"><span class="nav-dot"></span>Work</a></li>
-    <li><a href="#contact"><span class="nav-dot"></span>Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about"><span class="nav-dot"></span>About</a></li>
+      <li><a href="#skills"><span class="nav-dot"></span>Skills</a></li>
+      <li><a href="#projects"><span class="nav-dot"></span>Work</a></li>
+      <li><a href="#resume"><span class="nav-dot"></span>Resume</a></li>
+      <li><a href="#contact"><span class="nav-dot"></span>Contact</a></li>
+    </ul>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-toggle-text">LIGHT MODE</button>
+  </div>
 </nav>
 
 <!-- ── Hero ── -->
@@ -444,25 +522,19 @@
 
     <div class="hero-actions">
       <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="javascript:window.print()" class="btn-secondary">Print / Save Resume</a>
       <a href="#contact" class="btn-ghost">Get In Touch →</a>
     </div>
   </div>
 
   <div class="hero-code">
   <span class="ln">1</span><span class="c-muted">const </span><span class="c-white">developer</span><span class="c-muted"> = {</span><br>
-
   <span class="ln">2</span><span class="c-dim">name:</span><span class="c-green"> 'Maaz Aftab'</span><span class="c-muted">,</span><br>
-
   <span class="ln">3</span><span class="c-dim">role:</span><span class="c-green"> 'Backend Developer'</span><span class="c-muted">,</span><br>
-
-  <span class="ln">4</span><span class="c-dim">stack:</span><span class="c-muted"> ['Java', 'Spring Boot', ' 'MySQL', 'Docker'],</span><br>
-
+  <span class="ln">4</span><span class="c-dim">stack:</span><span class="c-muted"> ['Java', 'Spring Boot', 'MySQL', 'Docker'],</span><br>
   <span class="ln">5</span><span class="c-dim">skills:</span><span class="c-muted"> ['REST APIs',  'Git'],</span><br>
-
   <span class="ln">6</span><span class="c-dim">currentlyLearning:</span><span class="c-green"> 'Spring Security' </span><br>
-
   <span class="ln">7</span><span class="c-dim">openToWork:</span><span class="c-green"> true</span><br>
-
   <span class="ln">8</span><span class="c-muted">}</span><span class="t-cursor"></span>
 </div>
 </section>
@@ -471,7 +543,6 @@
 <section id="about">
   <div class="container">
     <div class="about-grid">
-
       <div class="about-text reveal">
         <p class="sec-label">About Me</p>
         <h2 class="sec-title">I turn ideas into<br>working software</h2>
@@ -520,9 +591,7 @@
           <div class="t-prompt">cat interests.txt</div>
           <div class="t-out">Problem solving (DSA)</div>
           <div class="t-out">Minimal design</div>
-          <div class="t-out"></div>
           <div class="t-out">Film making &amp; Editing</div>
-          <div class="t-out"></div>
           <br>
           <div class="t-prompt">cat status.txt</div>
           <div class="t-out" style="color: var(--green)">Open to opportunities</div>
@@ -531,7 +600,6 @@
           <div class="t-prompt"><span class="t-cursor"></span></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -540,7 +608,6 @@
 <section id="skills">
   <div class="container">
     <div class="skills-layout">
-
       <div class="reveal">
         <p class="sec-label">Skills</p>
         <h2 class="sec-title">My tech<br>stack</h2>
@@ -548,13 +615,12 @@
       </div>
 
       <div class="skills-content">
-
         <div class="skill-row reveal" style="transition-delay: .05s">
           <div class="skill-row-header">
             <span class="skill-row-name">Frontend</span>
             <span class="skill-row-pct">55%</span>
           </div>
-          <div class="skill-track"><div class="skill-fill" data-w="75%"></div></div>
+          <div class="skill-track"><div class="skill-fill" data-w="55%"></div></div>
           <div class="skill-tags">
             <span class="skill-tag">HTML</span>
             <span class="skill-tag">CSS</span>
@@ -564,69 +630,59 @@
         </div>
 
         <div class="skill-row reveal" style="transition-delay: .1s">
-  <div class="skill-row-header">
-    <span class="skill-row-name">Backend Development</span>
-    <span class="skill-row-pct">75%</span>
-  </div>
-  <div class="skill-track">
-    <div class="skill-fill" data-w="75%"></div>
-  </div>
-  <div class="skill-tags">
-    <span class="skill-tag">Java</span>
-    <span class="skill-tag">Spring Boot</span>
-    <span class="skill-tag">Spring Security</span>
-    <span class="skill-tag">REST APIs</span>
-    <span class="skill-tag">MySQL</span>
-  </div>
-</div>
-
-<div class="skill-row reveal" style="transition-delay: .15s">
-  <div class="skill-row-header">
-    <span class="skill-row-name">Authentication & Security</span>
-    <span class="skill-row-pct">65%</span>
-  </div>
-  <div class="skill-track">
-    <div class="skill-fill" data-w="65%"></div>
-  </div>
-  <div class="skill-tags">
-    <span class="skill-tag">JWT</span>
-    <span class="skill-tag">Spring Security</span>
-    <span class="skill-tag">Role-based Auth</span>
-  </div>
-</div>
-
-<div class="skill-row reveal" style="transition-delay: .2s">
-  <div class="skill-row-header">
-    <span class="skill-row-name">DevOps & Tools</span>
-    <span class="skill-row-pct">60%</span>
-  </div>
-  <div class="skill-track">
-    <div class="skill-fill" data-w="60%"></div>
-  </div>
-  <div class="skill-tags">
-    <span class="skill-tag">Docker</span>
-    <span class="skill-tag">Git</span>
-    <span class="skill-tag">GitHub</span>
-    <span class="skill-tag">Maven</span>
-  </div>
-</div>
-
-<div class="skill-row reveal" style="transition-delay: .25s">
-  <div class="skill-row-header">
-    <span class="skill-row-name">Programming Fundamentals</span>
-    <span class="skill-row-pct">70%</span>
-  </div>
-  <div class="skill-track">
-    <div class="skill-fill" data-w="70%"></div>
-  </div>
-  <div class="skill-tags">
-    <span class="skill-tag">Data Structures</span>
-    <span class="skill-tag">Problem Solving</span>
-    <span class="skill-tag">C</span>
-  </div>
-</div>
+          <div class="skill-row-header">
+            <span class="skill-row-name">Backend Development</span>
+            <span class="skill-row-pct">75%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="75%"></div></div>
+          <div class="skill-tags">
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag">Spring Security</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">MySQL</span>
+          </div>
         </div>
 
+        <div class="skill-row reveal" style="transition-delay: .15s">
+          <div class="skill-row-header">
+            <span class="skill-row-name">Authentication & Security</span>
+            <span class="skill-row-pct">65%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="65%"></div></div>
+          <div class="skill-tags">
+            <span class="skill-tag">JWT</span>
+            <span class="skill-tag">Spring Security</span>
+            <span class="skill-tag">Role-based Auth</span>
+          </div>
+        </div>
+
+        <div class="skill-row reveal" style="transition-delay: .2s">
+          <div class="skill-row-header">
+            <span class="skill-row-name">DevOps & Tools</span>
+            <span class="skill-row-pct">60%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="60%"></div></div>
+          <div class="skill-tags">
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Maven</span>
+          </div>
+        </div>
+
+        <div class="skill-row reveal" style="transition-delay: .25s">
+          <div class="skill-row-header">
+            <span class="skill-row-name">Programming Fundamentals</span>
+            <span class="skill-row-pct">70%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="70%"></div></div>
+          <div class="skill-tags">
+            <span class="skill-tag">Data Structures</span>
+            <span class="skill-tag">Problem Solving</span>
+            <span class="skill-tag">C</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -644,9 +700,8 @@
     </div>
 
     <div class="projects-grid">
-
-      <!-- Featured -->
-      <a href="#" class="project-card featured reveal">
+      <!-- Featured CampusConnect Link Configured -->
+      <a href="https://campusconnect-frontend-6j8c.onrender.com" target="_blank" class="project-card featured reveal">
         <div>
           <div class="project-featured-badge">Featured</div>
           <div class="project-card-num">Project 01</div>
@@ -682,16 +737,123 @@
         <div class="project-card-footer">
           <div class="project-stack">
             <span class="stack-tag">Java</span>
-            <!--<span class="stack-tag">·</span>
-            <span class="stack-tag">CSS</span>
-            <span class="stack-tag">·</span>
-            <span class="stack-tag">JS</span> -->
           </div>
           <span class="project-arrow">↗</span>
         </div>
       </a>
+    </div>
+  </div>
+</section>
 
-      
+<!-- ── Resume Section ── -->
+<section id="resume" class="reveal">
+  <div class="container">
+    <p class="sec-label">Credentials</p>
+    <h2 class="sec-title">Interactive Resume</h2>
+    
+    <div class="resume-terminal" id="resume-print-target">
+      <!-- Header -->
+      <div class="res-header">
+        <div class="res-name">Maaz Aftab</div>
+        <div class="res-title-sub">Software Engineer / Java Developer</div>
+        <div class="res-meta">
+          <span>📍 India</span>
+          <span>📞 (+91) 90973 82316</span>
+          <span>✉️ <a href="mailto:maazaftab17@gmail.com">maazaftab17@gmail.com</a></span>
+          <span>🔗 <a href="https://www.linkedin.com/in/Maaz Aftab/" target="_blank">LinkedIn</a></span>
+          <span>💻 <a href="https://github.com/maazaftab17" target="_blank">GitHub</a></span>
+        </div>
+      </div>
+
+      <!-- Professional Summary -->
+      <div class="res-sec">
+        <div class="res-sec-title">Professional Summary</div>
+        <p style="color: var(--muted2)">
+          B.Tech CSE 2026 graduate with hands-on experience in Java, Spring Boot, Spring Security, REST APIs, and MySQL. 
+          Built and deployed backend applications using Docker and GitHub Actions. Seeking a Java Developer role with immediate availability.
+        </p>
+      </div>
+
+      <!-- Technical Skills -->
+      <div class="res-sec">
+        <div class="res-sec-title">Technical Skills</div>
+        <div class="res-skills-grid">
+          <div class="res-skill-category"><strong>Languages:</strong><br><span style="color:var(--muted2)">Java, Core Java, SQL, JavaScript, HTML5, CSS3</span></div>
+          <div class="res-skill-category"><strong>Frameworks:</strong><br><span style="color:var(--muted2)">Spring Boot, Spring MVC, Spring Security, Spring Data JPA</span></div>
+          <div class="res-skill-category"><strong>Architecture:</strong><br><span style="color:var(--muted2)">RESTful API design, SOLID principles, OOP</span></div>
+          <div class="res-skill-category"><strong>Testing & Tools:</strong><br><span style="color:var(--muted2)">Postman, Docker, GitHub Actions, Git, GitHub, MySQL, Oracle DB</span></div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="res-sec">
+        <div class="res-sec-title">Key Projects</div>
+        
+        <div class="res-item">
+          <div class="res-item-row">
+            <span class="res-item-name">Campus Connect Platform</span>
+            <span class="res-item-date">Spring Boot, JWT, MySQL, React, Docker</span>
+          </div>
+          <div class="res-item-sub">Backend Core Developer</div>
+          <ul>
+            <li class="res-bullet">Accomplished a 100% elimination of unauthorised API access by engineering a JWT authentication pipeline with Spring Security role-based access control.</li>
+            <li class="res-bullet">Accomplished a 25% reduction in data-access boilerplate by migrating raw JDBC persistence to Spring Data JPA with a fully normalised MySQL schema.</li>
+            <li class="res-bullet">Accomplished seamless cross-role user flows by designing five RESTful API endpoints integrated with a basic React.js front-end.</li>
+          </ul>
+        </div>
+
+        <div class="res-item">
+          <div class="res-item-row">
+            <span class="res-item-name">Car Rental Service Web Application</span>
+            <span class="res-item-date">Java, Spring Boot, MySQL, BCrypt, GitHub Actions</span>
+          </div>
+          <div class="res-item-sub">Full Stack Project Architecture</div>
+          <ul>
+            <li class="res-bullet">Accomplished zero core business logic failures across integration scenarios by designing robust RESTful API endpoints following SOLID design principles.</li>
+            <li class="res-bullet">Accomplished cryptographic compliance for all user credentials by integrating BCrypt password encryption layer into database configurations.</li>
+            <li class="res-bullet">Accomplished a 40% reduction in deployment configuration errors by containerising the full application stack with Docker.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="res-sec">
+        <div class="res-sec-title">Education</div>
+        <div class="res-item">
+          <div class="res-item-row">
+            <span class="res-item-name">IIMT Engineering College</span>
+            <span class="res-item-date">Graduation: June 2026</span>
+          </div>
+          <div class="res-item-sub">B.Tech in Computer Science and Engineering — CGPA: 7.4</div>
+        </div>
+        <div class="res-item" style="margin-bottom:0;">
+          <div class="res-item-row">
+            <span>XII — Mirza Ghalib College (65%)</span>
+            <span class="res-item-date">2022</span>
+          </div>
+        </div>
+        <div class="res-item">
+          <div class="res-item-row">
+            <span>X — Shatabdi Public School (63%)</span>
+            <span class="res-item-date">2020</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="res-sec" style="margin-bottom:0;">
+        <div class="res-sec-title">Certifications & Achievements</div>
+        <ul>
+          <li class="res-bullet"><strong>Java Full Stack Development:</strong> Intensive enterprise software design patterns track, Code for Success (2025).</li>
+          <li class="res-bullet"><strong>NCC 'B' Certificate:</strong> Vetted for high-pressure execution, squad management, and teamwork structure.</li>
+          <li class="res-bullet"><strong>AKTU Zonal Kho-Kho Athlete:</strong> Represented IIMT Engineering College in regional tournaments.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="resume-actions-bottom">
+      <button onclick="window.print()" class="btn-primary">Print / Download Clean PDF Copy</button>
     </div>
   </div>
 </section>
@@ -700,7 +862,6 @@
 <section id="contact">
   <div class="container">
     <div class="contact-grid">
-
       <div class="reveal">
         <p class="sec-label">Contact</p>
         <h2 class="contact-big">Let's<br>work<span class="green">.</span></h2>
@@ -751,14 +912,13 @@
         </div>
         <button type="submit" class="f-submit">Send Message →</button>
       </form>
-
     </div>
   </div>
 </section>
 
 <!-- ── Footer ── -->
 <footer>
-  <span>&#169; 2025 Maaz Aftab. Built with care.</span>
+  <span>&#169; 2026 Maaz Aftab. Built with care.</span>
   <a href="#hero" class="footer-back">Back to top &#8593;</a>
 </footer>
 
@@ -807,6 +967,33 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Dynamic Theme Feature ──
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const toggleBtn = document.getElementById('theme-toggle-text');
+    if (currentTheme === 'light') {
+      document.documentElement.removeAttribute('data-theme');
+      toggleBtn.textContent = 'LIGHT MODE';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      toggleBtn.textContent = 'DARK MODE';
+    }
+  }
+
+  // ── Voice Greeting ──
+  window.addEventListener('DOMContentLoaded', () => {
+    const speakGreeting = () => {
+      if ('speechSynthesis' in window) {
+        const message = new SpeechSynthesisUtterance("Welcome to the portfolio of Maaz Aftab. Have a wonderful day discovering his creations.");
+        message.rate = 0.95;
+        message.pitch = 1.0;
+        window.speechSynthesis.speak(message);
+      }
+      document.removeEventListener('click', speakGreeting);
+    };
+    document.addEventListener('click', speakGreeting);
+  });
 
   // ── Contact Form ──
   function handleSend(e) {
